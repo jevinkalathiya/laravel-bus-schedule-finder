@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Route</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f9ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #0077ff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .route-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .route-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+
+        .header-stop {
+            flex: 2;
+        }
+
+        .header-info {
+            flex: 2;
+        }
+
+        .header-times {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .header-time {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+
+        .route-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stop {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .stop:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Vertical line */
+        .stop::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 21px;
+            width: 4px;
+            height: calc(100% + 10px);
+            background-color: #0077ff;
+            z-index: 0;
+        }
+
+        /* Remove line after last stop */
+        .stop:last-child::before {
+            display: none;
+        }
+
+        /* Stop circle */
+        .stop-circle {
+            position: absolute;
+            left: 10px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border: 4px solid #0077ff;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .stop-details {
+            margin-left: 10px;
+            flex: 1;
+        }
+
+        .stop-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .stop-info {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .stop-time {
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .scheduled {
+            color: green;
+            font-weight: bold;
+        }
+
+        .actual {
+            color: red;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            float: right;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 767px) {
+            .back-btn {
+            float: none;
+        }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Bus Route - Mumbai to Pune
+        <button class="back-btn">Cancel</button>
+    </div>
+
+    <div class="route-container">
+        <div class="route-header">
+            <div class="header-stop">Station</div>
+            <div class="header-info">Terminal</div>
+            <div class="header-times">
+                <div class="header-time">Arrival</div>
+                <div class="header-time">Departure</div>
+            </div>
+        </div>
+
+        <div class="stop">
+            <div class="stop-circle"></div>
+            <div class="stop-details">
+                <div class="stop-title">Pune Station</div>
+                <div class="stop-info">Terminal No. 5</div>
+            </div>
+            <div class="stop-time-container">
+                <div class="stop-time"><span class="scheduled">08:00 AM</span></div>
+                <div class="stop-time"><span class="actual">08:00 AM</span></div>
+            </div>
+        </div>
+
+        <div class="stop">
+            <div class="stop-circle"></div>
+            <div class="stop-details">
+                <div class="stop-title">Pune Station</div>
+                <div class="stop-info">Terminal No. 5</div>
+            </div>
+            <div class="stop-time-container">
+                <div class="stop-time"><span class="scheduled">08:00 AM</span></div>
+                <div class="stop-time"><span class="actual">08:00 AM</span></div>
+            </div>
+        </div>
+
+        <div class="stop">
+            <div class="stop-circle"></div>
+            <div class="stop-details">
+                <div class="stop-title">Pune Station</div>
+                <div class="stop-info">Terminal No. 5</div>
+            </div>
+            <div class="stop-time-container">
+                <div class="stop-time"><span class="scheduled">08:00 AM</span></div>
+                <div class="stop-time"><span class="actual">08:00 AM</span></div>
+            </div>
+        </div>
+
+        <div class="stop">
+            <div class="stop-circle"></div>
+            <div class="stop-details">
+                <div class="stop-title">Pune Station</div>
+                <div class="stop-info">Terminal No. 5</div>
+            </div>
+            <div class="stop-time-container">
+                <div class="stop-time"><span class="scheduled">08:00 AM</span></div>
+                <div class="stop-time"><span class="actual">08:00 AM</span></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

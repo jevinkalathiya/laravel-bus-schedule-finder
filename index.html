@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bus Schedule Finder</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: #f4f6f8; /* Light gray background */
+    padding: 20px;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #ffffff; /* White container */
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #1e3a8a; /* Deep blue */
+        margin-bottom: 20px;
+    }
+    .form-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    select, input[type="date"], button {
+        flex: 1;
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background: #007bff; /* Primary blue */
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+    button:hover {
+        background: #0056b3; /* Darker blue on hover */
+    }
+    .bus-list {
+        margin-top: 10px;
+    }
+    .bus-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-bottom: 15px;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+    }
+    .bus-card:hover {
+        transform: scale(1.01);
+    }
+    .bus-header {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        background: linear-gradient(to right, #007bff, #12b4ff); /* Blue gradient */
+        color: white;
+        cursor: pointer;
+    }
+    .bus-type {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .bus-time {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .bus-time i {
+        margin-right: 5px;
+    }
+    .arrow {
+        transition: transform 0.3s ease;
+        margin-left: 10px;
+    }
+    .arrow.rotate {
+        transform: rotate(90deg);
+    }
+    .accordion {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        background: #f9f9f9;
+        padding: 0 15px;
+        text-align: center;
+    }
+    .accordion.open {
+        padding: 10px 15px;
+    }
+    .stop {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .stop i {
+        color: #007bff;
+        margin-right: 8px;
+    }
+    .stop:last-child {
+        border-bottom: none;
+    }
+    @media (max-width: 600px) {
+        .form-group {
+            flex-direction: column;
+        }
+        select, input[type="date"], button {
+            width: 100%;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚌 Bus Schedule Finder</h2>
+
+    <!-- Search Form -->
+    <div class="form-group">
+        <select id="source">
+            <option value="">Select Source</option>
+            <option value="City A">City A</option>
+            <option value="City B">City B</option>
+            <option value="City C">City C</option>
+        </select>
+        <select id="destination">
+            <option value="">Select Destination</option>
+            <option value="City B">City B</option>
+            <option value="City C">City C</option>
+            <option value="City D">City D</option>
+        </select>
+        <input type="date" id="travelDate">
+        <button onclick="searchBuses()">Search</button>
+    </div>
+
+    <!-- Bus List -->
+    <div class="bus-list" id="busList">
+        
+    </div>
+</div>
+
+<script>
+    // Sample bus data
+    const buses = [
+        {
+            id: 1,
+            source: "City A",
+            destination: "City B",
+            date: "2025-08-02",
+            type: "AC Sleeper",
+            depart: "08:00",
+            arrive: "12:00",
+            stops: [
+                { stop: "City A", time: "08:00" },
+                { stop: "Town X", time: "09:30" },
+                { stop: "Town Y", time: "10:45" },
+                { stop: "City B", time: "12:00" }
+            ]
+        },
+        {
+            id: 2,
+            source: "City A",
+            destination: "City B",
+            date: "2025-08-02",
+            type: "Non-AC Seater",
+            depart: "10:00",
+            arrive: "14:00",
+            stops: [
+                { stop: "City A", time: "10:00" },
+                { stop: "Village K", time: "11:15" },
+                { stop: "Town Z", time: "13:00" },
+                { stop: "City B", time: "14:00" }
+            ]
+        }
+    ];
+
+    function searchBuses() {
+        const source = document.getElementById("source").value;
+        const destination = document.getElementById("destination").value;
+        const date = document.getElementById("travelDate").value;
+        const busList = document.getElementById("busList");
+        busList.innerHTML = "";
+
+        const results = buses.filter(b => 
+            b.source === source && b.destination === destination && b.date === date
+        );
+
+        if (results.length === 0) {
+            busList.innerHTML = "<p>No buses found for selected route and date.</p>";
+            return;
+        }
+
+        results.forEach(bus => {
+            const card = document.createElement("div");
+            card.classList.add("bus-card");
+            card.innerHTML = `
+                <div class="bus-header">
+                    <div class="bus-type">${bus.type}</div>
+                    <div class="bus-time">
+                        <i class="fa-solid fa-bus"></i> ${bus.depart} → ${bus.arrive}
+                        <i class="fa-solid fa-angle-right arrow"></i>
+                    </div>
+                </div>
+                <div class="accordion">
+                    ${bus.stops.map(s => `
+                        <div class="stop">
+                            <span><i class="fa-solid fa-location-dot"></i>${s.stop}</span>
+                            <span>${s.time}</span>
+                        </div>
+                    `).join('')}
+                    <button style="margin-top: 10px;">
+                        <i class="fa-solid fa-info-circle"></i> Detail Route Info
+                    </button>
+                </div>
+            `;
+
+            const accordion = card.querySelector(".accordion");
+            const arrowIcon = card.querySelector(".arrow");
+
+            card.querySelector(".bus-header").addEventListener("click", () => {
+                // Close all others
+                document.querySelectorAll(".accordion").forEach(acc => {
+                    if (acc !== accordion) {
+                        acc.style.maxHeight = null;
+                        acc.classList.remove("open");
+                        acc.previousElementSibling.querySelector(".arrow")?.classList.remove("rotate");
+                    }
+                });
+
+                // Toggle clicked one
+                if (accordion.style.maxHeight) {
+                    accordion.style.maxHeight = null;
+                    accordion.classList.remove("open");
+                    arrowIcon.classList.remove("rotate");
+                } else {
+                    accordion.style.maxHeight = accordion.scrollHeight + "px";
+                    accordion.classList.add("open");
+                    arrowIcon.classList.add("rotate");
+                }
+            });
+
+            busList.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
