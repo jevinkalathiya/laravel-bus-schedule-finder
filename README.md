@@ -1,61 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ✅ Laravel Bus Schedule Finder
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple and structured Bus Schedule Finder built with Laravel, designed to practice and demonstrate **One-to-Many database relationships**.
+The app displays bus details, stops, and timings — and supports multiple buses sharing the same route name.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+🚌 Display bus details (name, route name, source, destination, timings)
+📍 Show all stops with respective arrival times
+🔗 **One-to-Many relationship:**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* One bus → Many stops
+* Multiple buses → Same route name
+  📱 Fully responsive for mobile, tablet, and desktop
+  ✏️ Clean, easy-to-understand UI for browsing schedules
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📂 Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Backend:** Laravel 10+
+**Frontend:** Blade templating, Bootstrap
+**Database:** MySQL
+**Styling:** Custom CSS + Bootstrap
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## ⚙️ Getting Started
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1️⃣ Clone the Repository
 
-### Premium Partners
+```bash
+git clone https://github.com/jevinkalathiya/laravel-bus-schedule-finder.git
+cd laravel-bus-schedule-finder
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 2️⃣ Install Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3️⃣ Set Up `.env`
 
-## Code of Conduct
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Edit `.env` with your database details:
 
-## Security Vulnerabilities
+```env
+DB_CONNECTION=mysql
+DB_DATABASE=your_db_name
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4️⃣ Run Migrations
 
-## License
+```bash
+php artisan migrate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 5️⃣ Serve the App
+
+```bash
+php artisan serve
+```
+
+Visit:
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+## 📊 Database Relationships Demonstrated
+
+* **One Bus → Many Stops**
+* **Multiple Buses → Same Route Name**
+
+---
+
+## 📸 Screenshot
+
+* **Index Page**
+![image_alt](https://github.com/jevinkalathiya/laravel-bus-schedule-finder/blob/448f8e14206936c4cb4193748a237282d895d0ca/public/img/Index.png)
+
+* **Admin Page**
+![image_alt](https://github.com/jevinkalathiya/laravel-bus-schedule-finder/blob/448f8e14206936c4cb4193748a237282d895d0ca/public/img/Admin.png)
+
+* **Search Result Page**
+![image_alt](https://github.com/jevinkalathiya/laravel-bus-schedule-finder/blob/448f8e14206936c4cb4193748a237282d895d0ca/public/img/Result.png)
+
+* **Route Detail Page**
+![image_alt](https://github.com/jevinkalathiya/laravel-bus-schedule-finder/blob/448f8e14206936c4cb4193748a237282d895d0ca/public/img/Route%20Details.png)
+
+---
+
+## 🎥 Demo Video
+
+🔗 [Watch Demo on LinkedIn](https://www.linkedin.com/posts/jevinkalathiya_webdevelopment-laravel-php-activity-7359464305483833344-jhMA?utm_source=share&utm_medium=member_desktop&rcm=ACoAADrixywBvDRQhYn_GR5HjrkZg2u0r7ZKGXE)
+
+---
+
+## 👤 Author
+
+**Jevin Kalathiya**  
+🔗 [GitHub Profile](https://github.com/jevinkalathiya)
+🔗 [LinkedIn Profile](https://in.linkedin.com/in/jevinkalathiya)
+
+---
